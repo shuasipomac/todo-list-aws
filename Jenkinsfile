@@ -136,7 +136,7 @@ pipeline {
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                     sh """
                         export BASE_URL=${env.ENDPOINT_BASE_URL_API}
-                        /home/ubuntu/.local/bin/pytest --junitxml=result-rest.xml test/integration/todoApiTest.py
+                        /usr/local/bin/pytest --junitxml=result-rest.xml test/integration/todoApiTest.py
                     """
                 }
             }
