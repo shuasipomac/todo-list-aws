@@ -12,7 +12,7 @@ echo "get_base_url_api.sh --> Input 1 'stage' value: $stage"
 echo "get_base_url_api.sh --> Input 2 'region' value: $region"
 
 
-outputs=$(aws cloudformation describe-stacks --stack-name todo-list-aws-$stage --region $region | jq '.Stacks[0].Outputs')
+outputs=$(aws cloudformation describe-stacks --stack-name $stage-todo-list-aws --region $region | jq '.Stacks[0].Outputs')
 
 extract_value() {
     echo "$outputs" | jq -r ".[] | select(.OutputKey==\"$1\") | .OutputValue"
