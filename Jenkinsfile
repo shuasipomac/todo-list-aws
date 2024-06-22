@@ -90,7 +90,7 @@ pipeline {
         }
 
 
-    stage('Extract stack outputs') {
+    stage('Extrae stack') {
             //env variables for output endpoint from sam deploy command
             environment {
                 ENDPOINT_BASE_URL_API = 'init'
