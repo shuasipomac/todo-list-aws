@@ -20,6 +20,9 @@ pipeline {
      
      stage('Get Code') {
         steps {
+           // Eliminar el directorio existente antes de clonar
+           deleteDir()
+           
             // Trae todo el código fuente del repositorio
              withCredentials([string(credentialsId: 'MiTokenDeGitHub', variable: 'TOKEN')]) {
              script {
