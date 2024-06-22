@@ -31,31 +31,31 @@ pipeline {
 
    
       stage('Static Test'){
-                    steps{
-                        sh """
-                            echo 'Host name, User and Workspace'
-                            hostname
-                            whoami
-                            pwd
-                        """
+         steps{
+              sh """
+                 echo 'Host name, User and Workspace'
+                 hostname
+                 whoami
+                 pwd
+               """
                         
-                        catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                            //sh "python -m flake8 --exit-zero --format=pylint src >flake8.out"
-                            sh "flake8 \
-                                    --exit-zero \
-                                    --format=pylint \
-                                    --max-line-length=100 \
-                                    src > flake8.out"
+           catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+           //sh "python -m flake8 --exit-zero --format=pylint src >flake8.out"
+           sh "flake8 \
+               --exit-zero \
+               --format=pylint \
+               --max-line-length=100 \
+               src > flake8.out"
                             
-                            recordIssues(
-                                tools: [flake8(name: 'Flake8', pattern: 'flake8.out')],
-                                qualityGates: [
-                                    [threshold: 9999, type: 'TOTAL', unstable: false],
-                                    [threshold: 9999, type: 'TOTAL', unstable: true]
-                                ]
-                            )
-                        }
-                    }
+                 recordIssues(
+                 tools: [flake8(name: 'Flake8', pattern: 'flake8.out')],
+                 qualityGates: [
+                 [threshold: 9999, type: 'TOTAL', unstable: false],
+                 [threshold: 9999, type: 'TOTAL', unstable: true]
+                 ]
+                 )
+           }
+          }
         }    
 
     
