@@ -90,7 +90,7 @@ pipeline {
         }
 
 
-    stage('Extrae stack') {
+    stage('Extrae Stack') {
             //env variables for output endpoint from sam deploy command
             environment {
                 ENDPOINT_BASE_URL_API = 'init'
@@ -125,7 +125,7 @@ pipeline {
             }
         }
 
-        stage('Rest tests') {
+        stage('Rest Tests') {
             steps {
                 sh """
                     echo 'Host name:'; hostname
