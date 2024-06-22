@@ -17,20 +17,20 @@ pipeline {
       //      }
       //  }
 
+     
      stage('Get Code') {
-            steps{
-                // Trae todo el código fuente del repositorio
-                  withCredentials([string(credentialsId: 'MiTokenDeGitHub', variable: 'TOKEN')])
-		   script {    
-                         sh “git clone https://$TOKEN@github.com/shuasipomac/todo-list-aws.git”
-                   }
-            }
-      }
+        steps {
+            // Trae todo el código fuente del repositorio
+             withCredentials([string(credentialsId: 'MiTokenDeGitHub', variable: 'TOKEN')]) {
+             script {
+                sh "git clone https://$TOKEN@github.com/shuasipomac/todo-list-aws.git"
+             }
+             }
+        }
+     }
 
-
-        
-    
-        stage('Static Test'){
+   
+      stage('Static Test'){
                     steps{
                         sh """
                             echo 'Host name, User and Workspace'
