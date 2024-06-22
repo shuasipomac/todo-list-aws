@@ -139,6 +139,7 @@ pipeline {
                         export BASE_URL=${env.ENDPOINT_BASE_URL_API}
                         /usr/local/bin/pytest --junitxml=result-rest.xml test/integration/todoApiTest.py
                     """
+                     junit 'result*.xml'
                 }
             }
         }
