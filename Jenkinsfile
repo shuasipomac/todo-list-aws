@@ -119,6 +119,9 @@ pipeline {
                     def base_url = readFile('base_url_api.tmp').trim()
                     env.ENDPOINT_BASE_URL_API = "${base_url}"
 
+                    //agregado
+                    echo "Lee endpoint_base_url_api: ${env.ENDPOIN_BASE_URL_API}"
+                    
                     //clean temporal files
                     sh "rm *.tmp"
                 }
