@@ -165,10 +165,11 @@ stage('Promote merge to master') {
                             git config --global user.name "shuasipomac"
                             git checkout -- .
                             git checkout master
-                            git pull https://${env.GIT_PAT}@github.com/vierodan/unir-devops-cp1D.git master
+                            git pull https://${env.GIT_PAT}@github.com/shuasipomac/todo-list-aws.git master
+                          
                             git fetch origin
                             git merge origin/develop || (git merge --abort && exit 1)
-                            git push https://${env.GIT_PAT}@github.com/vierodan/unir-devops-cp1D.git master
+                            git push https://${env.GIT_PAT}@github.com/shuasipomac/todo-list-aws.git master
                         """
                         
                     }
