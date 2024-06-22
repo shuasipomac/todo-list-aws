@@ -22,10 +22,10 @@ pipeline {
                 // Trae todo el código fuente del repositorio
                   withCredentials([string(credentialsId: 'MiTokenDeGitHub', variable: 'TOKEN')])
 		   script {    
-                  sh “git clone https://$TOKEN@github.com/shuasipomac/todo-list-aws.git”
+                         sh “git clone https://$TOKEN@github.com/shuasipomac/todo-list-aws.git”
+                   }
             }
-            }
-        }
+      }
 
 
         
