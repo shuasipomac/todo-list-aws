@@ -18,7 +18,7 @@ pipeline {
         }
 
     
-        stage('Static Code'){
+        stage('Static Test'){
                     steps{
                         sh """
                             echo 'Host name, User and Workspace'
@@ -48,7 +48,7 @@ pipeline {
 
     
        
-       stage('Security code'){
+       stage('Security Test'){
            steps{
                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                   sh "pwd"
@@ -62,7 +62,7 @@ pipeline {
         }
 
 
-        stage('Deploy'){
+        stage('SAM Deploy'){
             steps{
                 sh """
                     echo 'Host name:'; hostname
@@ -125,7 +125,7 @@ pipeline {
             }
         }
 
-        stage('Integration tests') {
+        stage('Rest tests') {
             steps {
                 sh """
                     echo 'Host name:'; hostname
