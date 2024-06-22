@@ -10,13 +10,25 @@ pipeline {
     }
 
     stages {
-        stage('Get Code') {
+      //  stage('Get Code') {
+      //    steps {
+      //          echo 'Inicio de la clonación del código fuente!!!'
+      //          git branch: 'develop', url: 'https://github.com/shuasipomac/todo-list-aws.git'
+      //      }
+      //  }
+
+     stage('Get Code') {
             steps {
-                echo 'Inicio de la clonación del código fuente!!!'
-                git branch: 'develop', url: 'https://github.com/shuasipomac/todo-list-aws.git'
+                // Trae todo el código fuente del repositorio
+                  withCredentials([string(credentialsId: 'MiTokenDeGitHub', variable: 'TOKEN')])
+		   script {    
+                  sh “git clone https://$TOKEN@github.com/shuasipomac/todo-list-aws.git”
+            }
             }
         }
 
+
+        
     
         stage('Static Test'){
                     steps{
@@ -145,40 +157,43 @@ pipeline {
         }
 
 
-stage('Promote merge to master') {
-            environment {
-                GIT_PAT = 'init'
-            }
-            steps {
-                sh """
-                    echo 'Host name:'; hostname
-                    echo 'User:'; whoami
-                    echo 'Workspace:'; pwd
-                """
+// stage('Promote merge to master') {
+//            environment {
+//                GIT_PAT = 'init'
+//            }
+//            steps {
+//                sh """
+//                    echo 'Host name:'; hostname
+//                    echo 'User:'; whoami
+//                    echo 'Workspace:'; pwd
+//                """
+//
+//                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+//                    withCredentials([string(credentialsId: 'MiTokenDeGitHub', variable: 'PAT')]) {
+//                     env.GIT_PAT = "${$PAT}"
+//
+//                        sh """
+//                            git config --global user.email "shuasipomac.devops@gmail.com"
+//                            git config --global user.name "shuasipomac"
+//                            git checkout -- .
+//                            git checkout master
+//                            git pull https://${env.GIT_PAT}@github.com/shuasipomac/todo-list-aws.git master
+//                          
+//                            git fetch origin
+//                            git merge origin/develop || (git merge --abort && exit 1)
+//                            git push https://${env.GIT_PAT}@github.com/shuasipomac/todo-list-aws.git master
+//                        """
+//                        
+//                    }
+//                }
+//            }
+//        }
 
-                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                    withCredentials([string(credentialsId: 'MiTokenDeGitHub', variable: 'PAT')]) {
-                        env.GIT_PAT = "${$PAT}"
 
-                        sh """
-                            git config --global user.email "shuasipomac.devops@gmail.com"
-                            git config --global user.name "shuasipomac"
-                            git checkout -- .
-                            git checkout master
-                            git pull https://${env.GIT_PAT}@github.com/shuasipomac/todo-list-aws.git master
-                          
-                            git fetch origin
-                            git merge origin/develop || (git merge --abort && exit 1)
-                            git push https://${env.GIT_PAT}@github.com/shuasipomac/todo-list-aws.git master
-                        """
-                        
-                    }
-                }
-            }
-        }
+   
 
 
-
+        
 
 
 
