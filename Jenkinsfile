@@ -82,8 +82,9 @@ pipeline {
                     sh "pwd"
                     sh "whoami"
                     
-                    sh "/usr/bin/bandit --exit-zero -r src -f custom -o bandit.out --severity-level medium --msg-template '{abspath}:{line}: {severity}: {test_id}: {msg}'"
-                    
+                    // sh "/usr/bin/bandit --exit-zero -r src -f custom -o bandit.out --severity-level medium --msg-template '{abspath}:{line}: {severity}: {test_id}: {msg}'"
+                    sh "/usr/bin/bandit -r src -f custom -o bandit.out --msg-template '{abspath}:{line}: {severity}: {test_id}: {msg}'"
+                         
                     recordIssues tools: [pylint(name: 'Bandit', pattern: 'bandit.out')], qualityGates: [
                         [threshold: 90, type: 'TOTAL', unstable: true],
                         [threshold: 100, type: 'TOTAL', unstable: false]
