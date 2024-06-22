@@ -14,11 +14,13 @@ DEFAULT_TIMEOUT = 2  # in secs
 
 @pytest.mark.api
 class TestApi(unittest.TestCase):
-    
+
+    @pytest.mark.humo
     def setUp(self):
         self.assertIsNotNone(BASE_URL, "URL no configurada")
         self.assertTrue(len(BASE_URL) > 8, "URL no configurada")
 
+    @pytest.mark.humo
     def test_api_listtodos(self):
         print('---------------------------------------')
         print('Starting - integration test List TODO')
