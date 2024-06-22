@@ -18,7 +18,7 @@ pipeline {
       //  }
 
      stage('Get Code') {
-            steps {
+            steps{
                 // Trae todo el código fuente del repositorio
                   withCredentials([string(credentialsId: 'MiTokenDeGitHub', variable: 'TOKEN')])
 		   script {    
