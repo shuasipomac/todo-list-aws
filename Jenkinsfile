@@ -67,8 +67,7 @@ pipeline {
                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                   sh "pwd"
                   sh "whoami"
-                  sh ls -la
-                   
+                                     
                   sh "python -m bandit --exit-zero -r src -f custom -o bandit.out --severity-level medium --msg-template '{abspath}:{line}: {severity}: {test_id}: {msg}'"
                   recordIssues tools: [pylint(name: 'Bandit', pattern: 'bandit.out')], qualityGates: [[threshold: 90, type: 'TOTAL', unstable: true], [threshold: 100, type: 'TOTAL', unstable: false]]
       
