@@ -75,9 +75,7 @@ pipeline {
             }
         }
 
-  
-
-        
+          
         stage('SAM Deploy'){
             steps{
                 sh """
