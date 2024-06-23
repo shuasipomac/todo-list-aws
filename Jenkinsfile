@@ -178,8 +178,8 @@ pipeline {
                     withCredentials([string(credentialsId: 'MiTokenDeGitHub', variable: 'PAT')]) {
                 //  env.GIT_PAT = "${$PAT}"
                 //  env.GIT_PAT = "${PAT}"
-                    env.GIT_PAT = PAT
-                        
+                    env.GIT_PAT = "${PAT}" 
+                                       
                         sh """
                             git config --global user.email "shuasipomac.devops@gmail.com"
                             git config --global user.name "shuasipomac"
