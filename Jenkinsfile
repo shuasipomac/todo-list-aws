@@ -78,28 +78,38 @@ pipeline {
           
         stage('SAM Deploy'){
             steps{
-                sh """
-                    echo 'Host name:'; hostname
-                    echo 'User:'; whoami
-                    echo 'Workspace:'; pwd
-                """
-
-                //sam build command
-                sh "sam build"
-
-                sleep(time: 1, unit: 'SECONDS')
-
-                //sam deploy command
-                sh "sam deploy \
-                        --template-file template.yaml \
-                        --stack-name ${env.STACK_NAME} \
-                        --region ${env.AWS_REGION} \
-                        --capabilities CAPABILITY_IAM \
-                        --parameter-overrides Stage=${env.STAGE} \
-                        --no-fail-on-empty-changeset \
-                        --s3-bucket ${env.S3_BUCKET} \
-                        --s3-prefix ${env.S3_PREFIX} \
-                        --no-confirm-changeset"
+              catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {  
+                    sh """
+                        echo 'Host name:'; hostname
+                        echo 'User:'; whoami
+                        echo 'Workspace:'; pwd
+                    """
+    
+                    //sam build command
+                    sh "sam build"
+    
+                    sleep(time: 1, unit: 'SECONDS')
+    
+                    //sam deploy command
+                      sh "sam deploy \
+                          --region ${env.AWS_REGION} \
+                          --config-env ${env.STAGE} \
+                          --template-file template.yaml \
+                          --config-file samconfig.toml \
+                          --no-fail-on-empty-changeset \
+                          --no-confirm-changeset"
+                  
+                    // sh "sam deploy \
+                    //        --template-file template.yaml \
+                    //        --stack-name ${env.STACK_NAME} \
+                    //        --region ${env.AWS_REGION} \
+                    //        --capabilities CAPABILITY_IAM \
+                    //        --parameter-overrides Stage=${env.STAGE} \
+                    //        --no-fail-on-empty-changeset \
+                    //        --s3-bucket ${env.S3_BUCKET} \
+                    //        --s3-prefix ${env.S3_PREFIX} \
+                    //        --no-confirm-changeset"
+               }
             }
         }
 
