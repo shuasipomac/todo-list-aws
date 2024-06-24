@@ -223,43 +223,6 @@ pipeline {
 
 
 
-// stage('Promote merge to master') {
-//            environment {
-//                // GIT_PAT = 'init'
-//                GIT_PAT = ''
-//            }
-//            steps {
-//                sh """
-//                    echo 'Host name:'; hostname
-//                    echo 'User:'; whoami
-//                    echo 'Workspace:'; pwd
-//                """
-//
-//                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-//                    withCredentials([string(credentialsId: 'MiTokenDeGitHub', variable: 'PAT')]) {
-//                //  env.GIT_PAT = "${$PAT}"
-//                    env.GIT_PAT = "${PAT}" 
-//                                      
-//                        sh """
-//                            git config --global user.email "shuasipomac.devops@gmail.com"
-//                            git config --global user.name "shuasipomac"
-//                            git checkout -- .
-//                            git checkout master
-//                            git pull https://${env.GIT_PAT}@github.com/shuasipomac/todo-list-aws.git master
-//                          
-//                            git fetch origin
-//                            git merge origin/develop || (git merge --abort && exit 1)
-//                            git push https://${env.GIT_PAT}@github.com/shuasipomac/todo-list-aws.git master
-//                       """
-//                        
-//                    }
-//                }
-//            }
-//        }
-
-
-   
-
 
 
         
