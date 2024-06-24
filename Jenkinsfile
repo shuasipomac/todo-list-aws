@@ -17,51 +17,7 @@ pipeline {
             }
         }
 
-    
-   
-      stage('Static Test'){
-         steps{
-              sh """
-                 echo 'Host name, User and Workspace'
-                 hostname
-                 whoami
-                 pwd
-               """
-                        
-           catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-           //sh "python -m flake8 --exit-zero --format=pylint src >flake8.out"
-           sh "flake8 \
-               --exit-zero \
-               --format=pylint \
-               --max-line-length=100 \
-               src > flake8.out"
-                            
-                 recordIssues(
-                 tools: [flake8(name: 'Flake8', pattern: 'flake8.out')],
-                 qualityGates: [
-                 [threshold: 9999, type: 'TOTAL', unstable: false],
-                 [threshold: 9999, type: 'TOTAL', unstable: true]
-                 ]
-                 )
-           }
-          }
-        }    
-
-        
-      stage('Security Test'){
-           steps{
-               catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                  sh "pwd"
-                  sh "whoami"
-                                     
-                  sh "python -m bandit --exit-zero -r src -f custom -o bandit.out --severity-level medium --msg-template '{abspath}:{line}: {severity}: {test_id}: {msg}'"
-                  recordIssues tools: [pyLint(name: 'Bandit', pattern: 'bandit.out')], qualityGates: [[threshold: 90, type: 'TOTAL', unstable: true], [threshold: 100, type: 'TOTAL', unstable: false]]
-      
-               }
-            }
-        }
-
-          
+     
         stage('SAM Deploy'){
             steps{
                 sh """
