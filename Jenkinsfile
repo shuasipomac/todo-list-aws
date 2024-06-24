@@ -101,67 +101,7 @@ pipeline {
         }
 
 
-      stage('Promote') {
-           
-            steps {
-                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                    withCredentials([string(credentialsId: 'MiTokenDeGitHub', variable: 'PAT')]) {
-                        sh """
-                            echo 'STAGE --> Promote merge to master'
-                            echo 'Host name:'; hostname
-                            echo 'User:'; whoami
-                            echo 'Workspace:'; pwd
-                        """
-
-                        script {
-                            // Configuración de git
-                            sh "git config --global user.email 'shuasipomac.devops@gmail.com'"
-                            sh "git config --global user.name 'shuasipomac'"
-
-                            //Eliminar cualquier cambio en el directorio de trabajo
-                            sh "git checkout -- ."
-
-                            //Hacer checkout a master y obtener la última versión desde el origen
-                            sh "git checkout master"
-                            sh "git pull https://\$PAT@github.com/shuasipomac/todo-list-aws.git  master"
-                                                                                 
-                            //Hacer checkout a develop y obtener la última versión desde el origen
-                            sh "git checkout develop"
-                            sh "git pull https://\$PAT@github.com/shuasipomac/todo-list-aws.git  develop"
-                                                    
-                            //Checkout master
-                            sh "git checkout master"
-
-                            //Merge develop en master
-                            def mergeStatus = sh(script: "git merge develop", returnStatus: true)
-
-                            //En caso de conflicto en el Merge o si dió Error el Merge
-                            if (mergeStatus){
-                                //Mensaje de error para conflicto o error en la ejecución del merge
-                                sh "echo 'Error: Merge conflict or other error occurred during git merge.'"
-                                //Abort merge
-                                sh "git merge --abort"
-
-                                //Lanzar el merge nuevamente y mantener los archivos en master en caso de conflicto
-                                sh "git merge develop -X ours --no-commit"
-                                //Restaurar el archivo Jenkinsfile con la versión del master
-                                sh "git checkout --ours Jenkinsfile"
-                                sh "git add Jenkinsfile"
-                                sh "git commit -m 'Merged develop into master, excluding Jenkinsfile'"
-                            }
-                            else {
-                                sh "echo 'Merge completed successfully.'"
-                            }
-                            
-                            //Push del resultado del merge result a master
-                            sh "git push https://\$PAT@github.com/shuasipomac/todo-list-aws.git master"
-                                                    
-                        }
-                    }
-                }
-            }
-        }
-
+      
 
 
 
