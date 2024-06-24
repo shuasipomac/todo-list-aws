@@ -172,37 +172,37 @@ pipeline {
                         """
 
                         script {
-                            // Setting Git configurations
+                            // Configuración de git
                             sh "git config --global user.email 'shuasipomac.devops@gmail.com'"
                             sh "git config --global user.name 'shuasipomac'"
 
-                            //Remove any change in the working directory
+                            //Eliminar cualquier cambio en el directorio de trabajo
                             sh "git checkout -- ."
 
-                            //Chechout master and get latest version from origin
+                            //Hacer checkout a master y obtener la última versión desde el origen
                             sh "git checkout master"
                             sh "git pull https://\$PAT@github.com/shuasipomac/todo-list-aws.git  master"
                                                                                  
-                            //Chechout develep and get latest version from origin
+                            //Hacer checkout a develop y obtener la última versión desde el origen
                             sh "git checkout develop"
                             sh "git pull https://\$PAT@github.com/shuasipomac/todo-list-aws.git  develop"
                                                     
                             //Checkout master
                             sh "git checkout master"
 
-                            //Merge develop into master
+                            //Merge develop en master
                             def mergeStatus = sh(script: "git merge develop", returnStatus: true)
 
-                            //In case of merge conflict or merge error
+                            //En caso de conflicto en el Merge o si dió Error el Merge
                             if (mergeStatus){
                                 //Log message for conflict or error
                                 sh "echo 'Error: Merge conflict or other error occurred during git merge.'"
                                 //Abort merge
                                 sh "git merge --abort"
 
-                                //Launch merge again keep files on master in case of conflict
+                                //Lanzar el merge nuevamente y mantener los archivos en master en caso de conflicto
                                 sh "git merge develop -X ours --no-commit"
-                                //Restore Jenkinsfile with the master version
+                                //Restaurar el archivo Jenkinsfile con la versión del master
                                 sh "git checkout --ours Jenkinsfile"
                                 sh "git add Jenkinsfile"
                                 sh "git commit -m 'Merged develop into master, excluding Jenkinsfile'"
@@ -211,8 +211,7 @@ pipeline {
                                 sh "echo 'Merge completed successfully.'"
                             }
                             
-
-                            //Push merge result to master
+                            //Push del resultado del merge result a master
                             sh "git push https://\$PAT@github.com/shuasipomac/todo-list-aws.git master"
                                                     
                         }
