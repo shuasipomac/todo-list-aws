@@ -6,14 +6,14 @@ pipeline {
         STACK_NAME = 'staging-todo-list-aws'
         S3_BUCKET = 'aws-sam-cli-managed-default-samclisourcebucket-cxher468fqlw'
         S3_PREFIX = 'staging'
-        STAGE = 'staging'
+        STAGE = 'production'
     }
 
     stages {
         stage('Get Code') {
           steps {
                 echo 'Inicio de la clonación del código fuente!!!'
-                git branch: 'develop', url: 'https://github.com/shuasipomac/todo-list-aws.git'
+                git branch: 'master', url: 'https://github.com/shuasipomac/todo-list-aws.git'
             }
         }
 
