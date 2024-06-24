@@ -195,7 +195,7 @@ pipeline {
 
                             //En caso de conflicto en el Merge o si dió Error el Merge
                             if (mergeStatus){
-                                //Log message for conflict or error
+                                //Mensaje de error para conflicto o error en la ejecución del merge
                                 sh "echo 'Error: Merge conflict or other error occurred during git merge.'"
                                 //Abort merge
                                 sh "git merge --abort"
