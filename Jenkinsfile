@@ -13,7 +13,8 @@ pipeline {
         stage('Get Code') {
           steps {
                 echo 'Inicio de la clonación del código fuente!!!'
-                git branch: 'develop', url: 'https://github.com/shuasipomac/todo-list-aws.git'
+                git branch: 'develop', url: 'https://MiTokenDeGitHub@github.com/shuasipomac/todo-list-aws.git'
+                //git branch: 'develop', url: 'https://github.com/shuasipomac/todo-list-aws.git'
             }
         }
 
