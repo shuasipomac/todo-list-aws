@@ -159,7 +159,7 @@ pipeline {
         }
 
 
-      stage('Promote merge to master') {
+      stage('Promote') {
            
             steps {
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
