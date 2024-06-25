@@ -31,8 +31,8 @@ if [ "$stage" == "default" ]; then
     outputs=$(aws cloudformation describe-stacks --stack-name todo-list-aws --region $region | jq '.Stacks[0].Outputs')
         
 else    
-    # outputs=$(aws cloudformation describe-stacks --stack-name todo-list-aws-$stage --region $region | jq '.Stacks[0].Outputs')
-      outputs=$(aws cloudformation describe-stacks --stack-name $stage-todo-list-aws --region $region | jq '.Stacks[0].Outputs')
+     outputs=$(aws cloudformation describe-stacks --stack-name todo-list-aws-$stage --region $region | jq '.Stacks[0].Outputs')
+    #  outputs=$(aws cloudformation describe-stacks --stack-name $stage-todo-list-aws --region $region | jq '.Stacks[0].Outputs')
 fi
 
 #function for extracting using jq the base url value
