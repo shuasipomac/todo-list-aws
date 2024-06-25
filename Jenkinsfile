@@ -3,7 +3,8 @@ pipeline {
     
     environment {
         AWS_REGION = 'us-east-1'
-        STACK_NAME = 'todo-list-aws-production'
+        //STACK_NAME = 'todo-list-aws-production'
+        STACK_NAME = 'production-todo-list-aws'
         S3_BUCKET = 'aws-sam-cli-managed-default-samclisourcebucket-cxher468fqlw'
         S3_PREFIX = 'todo-list-aws'
         STAGE = 'production'
@@ -31,25 +32,25 @@ pipeline {
 
                 sleep(time: 1, unit: 'SECONDS')
 
-                //sam deploy command
-                //  sh "sam deploy \
-                //      --region ${env.AWS_REGION} \
-                //      --config-env ${env.STAGE} \
-                //      --template-file template.yaml \
-                //      --config-file samconfig.toml \
-                //      --no-fail-on-empty-changeset \
-                //      --no-confirm-changeset"
+                sam deploy command
+                  sh "sam deploy \
+                      --region ${env.AWS_REGION} \
+                      --config-env ${env.STAGE} \
+                      --template-file template.yaml \
+                      --config-file samconfig.toml \
+                      --no-fail-on-empty-changeset \
+                      --no-confirm-changeset"
                 
-                    sh "sam deploy \
-                            --template-file template.yaml \
-                            --stack-name ${env.STACK_NAME} \
-                            --region ${env.AWS_REGION} \
-                            --capabilities CAPABILITY_IAM \
-                            --parameter-overrides Stage=${env.STAGE} \
-                            --no-fail-on-empty-changeset \
-                            --s3-bucket ${env.S3_BUCKET} \
-                            --s3-prefix ${env.S3_PREFIX} \
-                            --no-confirm-changeset"
+                 //   sh "sam deploy \
+                 //           --template-file template.yaml \
+                 //           --stack-name ${env.STACK_NAME} \
+                 //           --region ${env.AWS_REGION} \
+                 //           --capabilities CAPABILITY_IAM \
+                 //           --parameter-overrides Stage=${env.STAGE} \
+                 //           --no-fail-on-empty-changeset \
+                 //           --s3-bucket ${env.S3_BUCKET} \
+                 //           --s3-prefix ${env.S3_PREFIX} \
+                 //           --no-confirm-changeset"
             }
         }
 
