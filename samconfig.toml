@@ -24,8 +24,8 @@ image_repositories = []
 [production]
 [production.deploy]
 [production.deploy.parameters]
-#stack_name = "todo-list-aws-production"
-stack_name = "production-todo-list-aws"
+stack_name = "todo-list-aws-production"
+#stack_name = "production-todo-list-aws"
 s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-cxher468fqlw"
 s3_prefix = "todo-list-aws"
 region = "us-east-1"
