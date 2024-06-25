@@ -3,9 +3,9 @@ pipeline {
     
     environment {
         AWS_REGION = 'us-east-1'
-        STACK_NAME = 'staging-todo-list-aws'
+        STACK_NAME = 'todo-list-aws'
         S3_BUCKET = 'aws-sam-cli-managed-default-samclisourcebucket-cxher468fqlw'
-        S3_PREFIX = 'staging'
+        S3_PREFIX = 'todo-list-aws'
         STAGE = 'production'
     }
 
