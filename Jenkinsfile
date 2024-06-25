@@ -102,7 +102,7 @@ pipeline {
                         echo "variable ${env.ENDPOINT_BASE_URL_API}"
                         export BASE_URL=${env.ENDPOINT_BASE_URL_API}
                         //pytest --junitxml=result-rest.xml test/integration/todoApiTest.py
-                        /usr/local/bin/pytest --junitxml=result-rest.xml test/integration/todoApiTest.py -m pruebashumo
+                        pytest --junitxml=result-rest.xml test/integration/todoApiTest.py -m pruebashumo
                    """
                      junit 'result*.xml'
                 }
