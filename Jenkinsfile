@@ -32,7 +32,7 @@ pipeline {
 
                 sleep(time: 1, unit: 'SECONDS')
 
-                sam deploy command
+              //  sam deploy command
                   sh "sam deploy \
                       --region ${env.AWS_REGION} \
                       --config-env ${env.STAGE} \
