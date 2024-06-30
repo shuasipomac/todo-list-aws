@@ -129,8 +129,9 @@ pipeline {
                                 
                     //clean temporal files
                     sh "rm *.tmp"
-               }
-            }
+                }
+              }
+           }
         }
 
         stage('Rest Tests') {
