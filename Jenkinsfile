@@ -94,13 +94,13 @@ pipeline {
 
         stage('Rest Tests') {
             steps {
-                sh """
-                    echo 'Host name:'; hostname
-                    echo 'User:'; whoami
-                    echo 'Workspace:'; pwd
-                """
-
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                    sh """
+                        echo 'Host name:'; hostname
+                        echo 'User:'; whoami
+                        echo 'Workspace:'; pwd
+                    """
+                
                    sh """
                         echo "variable ${env.ENDPOINT_BASE_URL_API}"
                         export BASE_URL=${env.ENDPOINT_BASE_URL_API}
