@@ -27,7 +27,6 @@ pipeline {
                """
                         
            catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-           //sh "python -m flake8 --exit-zero --format=pylint src >flake8.out"
            sh "flake8 \
                --exit-zero \
                --format=pylint \
