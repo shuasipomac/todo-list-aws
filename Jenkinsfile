@@ -142,31 +142,10 @@ pipeline {
 
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                    sh """
-                        # echo "variable ${env.ENDPOINT_BASE_URL_API}"
-                        # export BASE_URL=${env.ENDPOINT_BASE_URL_API}
-                        # pytest --junitxml=result-rest.xml test/integration/todoApiTest.py
-                    
-                        #!/bin/bash
-    
-                            # Muestra la salida del Stage y Region
-                            #echo "get_base_url_api.sh --> Input 1 'stage' value: ${STAGE}"
-                            #echo "get_base_url_api.sh --> Input 2 'region' value: ${AWS_REGION}"
-    
-                            # Describe CloudFormation stacks y captura la salida
-                            outputs=$(aws cloudformation describe-stacks --stack-name ${STAGE}-todo-list-aws --region ${AWS_REGION}  | jq '.Stacks[0].Outputs')
-                        
-                            # Extrae el valor de BaseUrlApi usando jq
-                            BASE_URL_API=$(echo "$outputs" | jq -r '.[] | select(.OutputKey=="BaseUrlApi") | .OutputValue')
-                        
-                            # Muestra el valor de BaseUrlApi
-                            echo $BASE_URL_API
-    
-                            # Setea en el entorno la URL
-                            export BASE_URL=$BASE_URL_API
-    
-                            # Ejecuta las pruebas
-                            pytest --junitxml=result-rest.xml test/integration/todoApiTest.py
-                       
+                         echo "variable ${env.ENDPOINT_BASE_URL_API}"
+                         export BASE_URL=${env.ENDPOINT_BASE_URL_API}
+                         pytest --junitxml=result-rest.xml test/integration/todoApiTest.py
+                              
                    """
                      junit 'result*.xml'
                 }
