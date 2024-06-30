@@ -97,40 +97,40 @@ pipeline {
         }
 
 
-    stage('Extrae Stack') {
-            //env variables for output endpoint from sam deploy command
-            environment {
-                ENDPOINT_BASE_URL_API = 'init'
-            }
-            steps {
-                sh """
-                    echo 'Host name:'; hostname
-                    echo 'User:'; whoami
-                    echo 'Workspace:'; pwd
-                """
+   // stage('Extrae Stack') {
+   //         //env variables for output endpoint from sam deploy command
+   //         environment {
+   //             ENDPOINT_BASE_URL_API = 'init'
+   //         }
+   //         steps {
+   //             sh """
+   //                 echo 'Host name:'; hostname
+   //                 echo 'User:'; whoami
+   //                 echo 'Workspace:'; pwd
+   //             """
 
-                echo "Value for --> STAGE: ${env.STAGE}"
-                echo "Value for --> AWS_REGION: ${env.AWS_REGION}"
+   //             echo "Value for --> STAGE: ${env.STAGE}"
+   //             echo "Value for --> AWS_REGION: ${env.AWS_REGION}"
 
-                script {
-                    //asign permissions to execut scripts
-                    sh "chmod +x obtiene_base_url_api.sh"
+   //             script {
+   //                //asign permissions to execut scripts
+   //                 sh "chmod +x obtiene_base_url_api.sh"
 
-                    //execute extract_output.sh script for extract outputs url's from sam deploy command
-                    sh "./obtiene_base_url_api.sh ${env.STAGE} ${env.AWS_REGION}"
+   //                 //execute extract_output.sh script for extract outputs url's from sam deploy command
+   //                 sh "./obtiene_base_url_api.sh ${env.STAGE} ${env.AWS_REGION}"
 
-                    //list temporal files created with url's for all endpoint
-                    sh "ls -l *.tmp"
+   //                 //list temporal files created with url's for all endpoint
+   //                 sh "ls -l *.tmp"
 
-                    //read temporal files and asing the value to environment variable
-                    def base_url = readFile('base_url_api.tmp').trim()
-                    env.ENDPOINT_BASE_URL_API = "${base_url}"
+   //                 //read temporal files and asing the value to environment variable
+   //                 def base_url = readFile('base_url_api.tmp').trim()
+   //                 env.ENDPOINT_BASE_URL_API = "${base_url}"
                                 
-                    //clean temporal files
-                    sh "rm *.tmp"
-                }
-            }
-        }
+   //                 //clean temporal files
+   //                 sh "rm *.tmp"
+   //             }
+   //         }
+   //     }
 
         stage('Rest Tests') {
             steps {
