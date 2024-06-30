@@ -4,7 +4,6 @@ pipeline {
     environment {
         AWS_REGION = 'us-east-1'
         STACK_NAME = 'todo-list-aws-production'
-        //STACK_NAME = 'production-todo-list-aws'
         S3_BUCKET = 'aws-sam-cli-managed-default-samclisourcebucket-cxher468fqlw'
         S3_PREFIX = 'todo-list-aws'
         STAGE = 'production'
@@ -18,7 +17,6 @@ pipeline {
             }
         }
 
-     
         stage('SAM Deploy'){
             steps{
                 sh """
@@ -53,7 +51,6 @@ pipeline {
                  //           --no-confirm-changeset"
             }
         }
-
 
     stage('Extrae Stack') {
             //env variables for output endpoint from sam deploy command
