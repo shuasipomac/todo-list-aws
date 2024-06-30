@@ -14,25 +14,8 @@ pipeline {
           steps {
                 echo 'Inicio de la clonación del código fuente!!!'
                 git branch: 'develop', url: 'https://MiTokenDeGitHub@github.com/shuasipomac/todo-list-aws.git'
-                //git branch: 'develop', url: 'https://github.com/shuasipomac/todo-list-aws.git'
-            }
+                }
         }
-
-     
-   //  stage('Get Code') {
-   //     steps {
-   //        // Eliminar el directorio existente antes de clonar
-   //        deleteDir()
-   //        
-   //         // Trae todo el código fuente del repositorio
-   //          withCredentials([string(credentialsId: 'MiTokenDeGitHub', variable: 'TOKEN')]) {
-   //          script {
-   //             sh "git clone https://$TOKEN@github.com/shuasipomac/todo-list-aws.git"
-   //          }
-   //          }
-   //     }
-   //  }
-
    
       stage('Static Test'){
          steps{
