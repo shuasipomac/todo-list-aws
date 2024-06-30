@@ -103,6 +103,7 @@ pipeline {
                 ENDPOINT_BASE_URL_API = 'init'
             }
             steps {
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                 sh """
                     echo 'Host name:'; hostname
                     echo 'User:'; whoami
