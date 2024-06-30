@@ -71,7 +71,7 @@ pipeline {
                 echo "Value for --> AWS_REGION: ${env.AWS_REGION}"
 
                 script {
-                    //asign permissions to execut scripts
+                   //asign permissions to execut scripts
                     sh "chmod +x obtiene_base_url_api.sh"
 
                     //execute extract_output.sh script for extract outputs url's from sam deploy command
@@ -86,7 +86,7 @@ pipeline {
                                 
                     //clean temporal files
                     sh "rm *.tmp"
-                }
+               }
             }
         }
 
