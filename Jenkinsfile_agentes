@@ -28,6 +28,7 @@ pipeline {
         }
 
         stage('SAM Deploy'){
+            agent any
             steps{
                 sh """
                     echo 'Host name:'; hostname
