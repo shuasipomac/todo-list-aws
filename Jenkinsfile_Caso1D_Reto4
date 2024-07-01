@@ -22,12 +22,13 @@ pipeline {
                 }
                     
                 // Checkout second repository todo-list-aws-samconfig
-                dir('todo-list-aws-samconfig') {
+                dir('todo-list-aws-config') {
                     git branch: 'staging', url: 'https://github.com/shuasipomac/todo-list-aws-config.git'
                 }
                     
                 // Move contents of repo2 into repo1
                    sh 'cp -r todo-list-aws-config/* todo-list-aws/'
+                    https://github.com/shuasipomac/todo-list-aws-config.git
                 }
         }
    
