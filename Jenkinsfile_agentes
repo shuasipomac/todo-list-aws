@@ -7,14 +7,23 @@ pipeline {
         S3_BUCKET = 'aws-sam-cli-managed-default-samclisourcebucket-cxher468fqlw'
         S3_PREFIX = 'todo-list-aws'
         STAGE = 'production'
-        GITHUB_TOKEN = credentials('git-token-id')
+
+        GITHUB_TOKEN = credentials('MiTokenDeGitHub')
     }
 
     stages {
         stage('Get Code') {
+          agent any
           steps {
                 echo 'Inicio de la clonación del código fuente!!!'
-                git branch: 'master', url: 'https://github.com/shuasipomac/todo-list-aws.git'
+                sh 'whoami'
+                sh 'hostname'
+                git branch: 'master', url: 'https://github.com/shuasipomac/todo-list-aws.git', credentialsId: 'MiTokenDeGitHub'
+                //git branch: 'master', url: 'https://github.com/shuasipomac/todo-list-aws.git'
+
+                sh 'pwd'
+                stash includes: 'src/**', name: 'd_src'
+                stash includes: 'test/**', name: 'd_test'
             }
         }
 
