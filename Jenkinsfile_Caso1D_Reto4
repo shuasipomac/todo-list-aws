@@ -29,7 +29,7 @@ pipeline {
                 // Move contents of repo2 into repo1
                    sh 'cp -r todo-list-aws-config/* todo-list-aws/'
                     https://github.com/shuasipomac/todo-list-aws-config.git
-                }
+           }
         }
    
       stage('Static Test'){
