@@ -148,7 +148,7 @@ pipeline {
 
 
       stage('Promote') {
-           
+       agent any     
             steps {
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                     withCredentials([string(credentialsId: 'MiTokenDeGitHub', variable: 'PAT')]) {
@@ -207,11 +207,6 @@ pipeline {
                 }
             }
         }
-
-
-
-
-
-        
+      
     }
 }
