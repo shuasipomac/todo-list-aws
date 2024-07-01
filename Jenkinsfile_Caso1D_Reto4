@@ -7,6 +7,7 @@ pipeline {
         S3_BUCKET = 'aws-sam-cli-managed-default-samclisourcebucket-cxher468fqlw'
         S3_PREFIX = 'staging'
         STAGE = 'staging'
+        GITHUB_TOKEN = credentials('git-token-id')
     }
 
     stages {
