@@ -5,7 +5,7 @@ pipeline {
         STACK_NAME = 'todo-list-aws-production'        
         AWS_REGION = 'us-east-1'
         S3_BUCKET = 'aws-sam-cli-managed-default-samclisourcebucket-cxher468fqlw'
-        S3_PREFIX = 'staging'
+        S3_PREFIX = 'todo-list-aws'
         STAGE = 'staging'
 
         GITHUB_TOKEN = credentials('MiTokenDeGitHub')
