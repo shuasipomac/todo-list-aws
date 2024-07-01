@@ -73,8 +73,8 @@ pipeline {
         }
 
           
-        stage('SAM Deploy'){
-            steps{
+      stage('SAM Deploy'){
+           steps{
               catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {  
                     sh """
                         echo 'Host name:'; hostname
