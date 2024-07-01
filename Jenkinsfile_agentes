@@ -63,62 +63,42 @@ pipeline {
             }
         }
 
-    stage('Extrae Stack') {
-            agent any
-            //env variables for output endpoint from sam deploy command
-            environment {
-                ENDPOINT_BASE_URL_API = 'init'
-            }
-            steps {
-                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                sh """
-                    echo 'Host name:'; hostname
-                    echo 'User:'; whoami
-                    echo 'Workspace:'; pwd
-                """
-
-                echo "Value for --> STAGE: ${env.STAGE}"
-                echo "Value for --> AWS_REGION: ${env.AWS_REGION}"
-
-                script {
-                   //asign permissions to execut scripts
-                    sh "chmod +x obtiene_base_url_api.sh"
-
-                    //execute extract_output.sh script for extract outputs url's from sam deploy command
-                    sh "./obtiene_base_url_api.sh ${env.STAGE} ${env.AWS_REGION}"
-
-                    //list temporal files created with url's for all endpoint
-                    sh "ls -l *.tmp"
-
-                    //read temporal files and asing the value to environment variable
-                    def base_url = readFile('base_url_api.tmp').trim()
-                    env.ENDPOINT_BASE_URL_API = "${base_url}"
-                                
-                    //clean temporal files
-                    sh "rm *.tmp"
-                }
-              }
-           }
-        }
-
         stage('Rest Tests') {
-            agent {
+           agent {
                 label 'agente2'
             }
             steps {
-                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                    sh """
-                        echo 'Host name:'; hostname
-                        echo 'User:'; whoami
-                        echo 'Workspace:'; pwd
-                    """
-                
-                   sh """
-                        echo "variable ${env.ENDPOINT_BASE_URL_API}"
-                        export BASE_URL=${env.ENDPOINT_BASE_URL_API}
-                        pytest --junitxml=result-rest.xml test/integration/todoApiTest.py -m pruebashumo
-                    """
-                     junit 'result*.xml'
+                script {
+                    echo "Inicio de stage Rest Tests"
+                    sh 'whoami'
+                    sh 'hostname'
+                    catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                        sh '''
+                            #!/bin/bash
+    
+                            # Muestra la salida del Stage y Region
+                            echo "Input 1 'stage' value: ${STAGE}"
+                            echo "Input 2 'region' value: ${AWS_REGION}"
+    
+                            # Describe CloudFormation stacks y captura la salida
+                            outputs=$(aws cloudformation describe-stacks --stack-name ${STAGE}-todo-list-aws --region ${AWS_REGION}  | jq '.Stacks[0].Outputs')
+                        
+                            # Extrae el valor de BaseUrlApi usando jq
+                            BASE_URL_API=$(echo "$outputs" | jq -r '.[] | select(.OutputKey=="BaseUrlApi") | .OutputValue')
+                        
+                            # Muestra el valor de BaseUrlApi
+                            echo $BASE_URL_API
+    
+                            # Setea en el entorno la URL
+                            export BASE_URL=$BASE_URL_API
+    
+                            # Ejecuta las pruebas
+                            pytest --junitxml=result-rest.xml test/integration/todoApiTest.py -m smoke
+                        '''
+                        
+                        // Muestra el resultado
+                        junit 'result*.xml'
+                    }
                 }
             }
         }
