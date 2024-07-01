@@ -92,6 +92,14 @@ pipeline {
                     sleep(time: 1, unit: 'SECONDS')
     
                     //sam deploy command
+                    //  sh "sam deploy \
+                    //      --region ${env.AWS_REGION} \
+                    //      --config-env ${env.STAGE} \
+                    //      --template-file template.yaml \
+                    //      --config-file samconfig.toml \
+                    //      --no-fail-on-empty-changeset \
+                    //      --no-confirm-changeset"
+
                       sh "sam deploy \
                         --template-file template.yaml \
                         --stack-name ${env.STACK_NAME} \
