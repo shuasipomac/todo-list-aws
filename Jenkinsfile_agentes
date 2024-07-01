@@ -8,14 +8,18 @@ pipeline {
         S3_PREFIX = 'staging'
         STAGE = 'staging'
 
-        GITHUB_TOKEN = credentials('git-token-id')
+        GITHUB_TOKEN = credentials('MiTokenDeGitHub')
     }
 
     stages {
         stage('Get Code') {
+          agent any
           steps {
                 echo 'Inicio de la clonación del código fuente!!!'
-                git branch: 'develop', url: 'https://MiTokenDeGitHub@github.com/shuasipomac/todo-list-aws.git'
+                sh 'whoami'
+                sh 'hostname'
+                git branch: 'develop', url: 'https://github.com/AlbertoCrisostomo/todo-list-aws.git', credentialsId: 'git-token-id'
+                //git branch: 'develop', url: 'https://MiTokenDeGitHub@github.com/shuasipomac/todo-list-aws.git'
                 }
         }
    
