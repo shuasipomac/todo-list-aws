@@ -93,7 +93,7 @@ pipeline {
                             export BASE_URL=$BASE_URL_API
     
                             # Ejecuta las pruebas
-                            pytest --junitxml=result-rest.xml test/integration/todoApiTest.py -m smoke
+                            pytest --junitxml=result-rest.xml test/integration/todoApiTest.py -m pruebashumo
                         '''
                         
                         // Muestra el resultado
