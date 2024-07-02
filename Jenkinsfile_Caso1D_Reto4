@@ -21,7 +21,7 @@ pipeline {
                      git branch: 'develop', url: 'https://github.com/shuasipomac/todo-list-aws.git', credentialsId: 'MiTokenDeGitHub'
                 }
                     
-                // Checkout second repository todo-list-aws-samconfig
+                // Checkout second repository todo-list-aws-config
                 dir('todo-list-aws-config') {
                     git branch: 'staging', url: 'https://github.com/shuasipomac/todo-list-aws-config.git'
                 }
